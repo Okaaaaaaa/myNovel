@@ -56,14 +56,13 @@ public class JwtUtils {
                     .setSigningKey(Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)))
                     .build()
                     .parseClaimsJws(token);
-            // OK, we can trust this JWT
             // 判断该 JWT 是否属于指定系统
             if (Objects.equals(claimsJws.getHeader().get(HEADER_SYSTEM_KEY), systemKey)) {
+                // 若认证成功，则获得body中存的用户id
                 return Long.parseLong(claimsJws.getBody().getSubject());
             }
         } catch (JwtException e) {
             log.warn("JWT解析失败:{}", token);
-            // don't trust the JWT!
         }
         return null;
     }

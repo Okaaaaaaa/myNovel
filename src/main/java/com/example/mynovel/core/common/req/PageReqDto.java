@@ -1,4 +1,4 @@
-package com.example.mynovel.dto.req;
+package com.example.mynovel.core.common.req;
 
 import lombok.Data;
 
